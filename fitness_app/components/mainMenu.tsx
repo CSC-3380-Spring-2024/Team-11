@@ -4,6 +4,7 @@ import TabsBar from "./mainMenuComponents/TabsBar";
 import Calendar from "./calendar";
 import CalorieCounter from "./calorieCounter";
 import WorkoutCreator from "./workoutCreator";
+import LogoutButton from "./logOutButton";
 
 const MainMenu: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [selectedTab, setSelectedTab] = useState("mainMenu");
@@ -15,7 +16,8 @@ const MainMenu: React.FC<{ navigation: any }> = ({ navigation }) => {
         {selectedTab === "calendar" && <Calendar />}
         {selectedTab === "calorieCounter" && <CalorieCounter />}
         {selectedTab === "workoutCreator" && <WorkoutCreator />}
-        {selectedTab === "mainMenu" && <Text>Main Menu Content Placeholder</Text>}
+        {selectedTab === "mainMenu" && <Text>Main Menu Content Placeholder </Text>}
+        <LogoutButton />
       </View>
 
       {/* Tab Bar */}
