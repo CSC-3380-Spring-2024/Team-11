@@ -22,7 +22,7 @@ const TabsBar: React.FC<TabsBarProps> = ({ selectedTab, onTabPress }) => {
 
   return (
     <View style={{ flexDirection: "row", justifyContent: "space-around", alignItems: "center", borderTopWidth: 1, borderTopColor: "#ccc", paddingBottom: 10 }}>
-      {renderTab("mainMenu", "Main Menu")}
+      {renderTab("timerApp", "Timer")}
       {renderTab("calendar", "Calendar")}
       {renderTab("calorieCounter", "Calorie Counter")}
       {renderTab("workoutCreator", "Workout Creator")}
