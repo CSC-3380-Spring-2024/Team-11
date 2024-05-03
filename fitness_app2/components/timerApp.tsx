@@ -56,4 +56,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TimerApp;
+export default timerApp;
