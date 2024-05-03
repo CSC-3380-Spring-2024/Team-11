@@ -1,29 +1,59 @@
-import React, { useState } from "react";
-import { View, Text } from "react-native";
-import TabsBar from "./mainMenuComponents/TabsBar";
-import Calendar from "./calendar";
-import CalorieCounter from "./calorieCounter";
-import WorkoutCreator from "./workoutCreator";
-import LogoutButton from "./logOutButton";
+import React, { useState, useEffect } from 'react';
+import { View, Text, Button, StyleSheet } from 'react-native';
 
-const MainMenu: React.FC<{ navigation: any }> = ({ navigation }) => {
-  const [selectedTab, setSelectedTab] = useState("mainMenu");
+const TimerApp: React.FC = () => {
+  const [seconds, setSeconds] = useState<number>(0);
+  const [isActive, setIsActive] = useState<boolean>(false);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+
+    if (isActive) {
+      interval = setInterval(() => {
+        setSeconds(prevSeconds => prevSeconds + 1);
+      }, 1000);
+    } else {
+      clearInterval(interval);
+    }
+
+    return () => clearInterval(interval);
+  }, [isActive]);
+
+  const handleStartPause = () => {
+    setIsActive(!isActive);
+  };
+
+  const handleReset = () => {
+    setSeconds(0);
+    setIsActive(false);
+  };
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#fff" }}>
-      {/* Main Content */}
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        {selectedTab === "calendar" && <Calendar />}
-        {selectedTab === "calorieCounter" && <CalorieCounter />}
-        {selectedTab === "workoutCreator" && <WorkoutCreator />}
-        {selectedTab === "mainMenu" && <Text>Main Menu Content Placeholder </Text>}
-        <LogoutButton />
+    <View style={styles.container}>
+      <Text style={styles.timer}>{seconds}</Text>
+      <View style={styles.buttonContainer}>
+        <Button title={isActive ? 'Pause' : 'Start'} onPress={handleStartPause} />
+        <Button title="Reset" onPress={handleReset} />
       </View>
-
-      {/* Tab Bar */}
-      <TabsBar selectedTab={selectedTab} onTabPress={setSelectedTab} />
     </View>
   );
 };
 
-export default MainMenu;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  timer: {
+    fontSize: 60,
+    marginBottom: 20,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '60%',
+  },
+});
+
+export default TimerApp;
